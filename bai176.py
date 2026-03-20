@@ -1,4 +1,5 @@
-# Test logic cipher
+import sys
+
 def cipher(data):
     result = bytearray()
     for byte in data:
@@ -8,12 +9,15 @@ def cipher(data):
             result.append(byte - 128)
     return result
 
-# Test với chuỗi "Hello"
-original = b"Hello World"
-encoded = cipher(original)
-decoded = cipher(encoded)  # Giải mã = mã hóa lại
+input_file = sys.argv[1]
+output_file = sys.argv[2]
 
-print("Original: ", original)
-print("Encoded:  ", encoded)
-print("Decoded:  ", decoded)
-print("Khop nhau:", original == bytes(decoded))
+with open(input_file, 'rb') as f:
+    data = f.read()
+
+result = cipher(data)
+
+with open(output_file, 'wb') as f:
+    f.write(result)
+
+print("Xu ly xong...")
